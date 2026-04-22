@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Campus Navigation</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    
+
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="app-container">
+    <!-- Map Area -->
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+
+    <!-- Instruction Card -->
+    <div class="instruction-card" id="instructionCard">
+        <div class="instruction-icon">
+            <span class="material-icons-round">explore</span>
+        </div>
+        <div class="instruction-text">
+            <span id="navInstruction">Select destination</span>
+            <span id="navMeta">Tap Start Navigation</span>
+        </div>
+    </div>
+
+    <!-- Satellite Toggle Button -->
+    <button class="map-toggle-btn" id="mapToggleBtn" title="Toggle Satellite View">
+        <span class="material-icons-round">satellite_alt</span>
+    </button>
+
+    <!-- GPS / Locate Me Button -->
+    <button class="gps-btn" id="locateMeBtn" title="Find my location">
+        <span class="material-icons-round">my_location</span>
+    </button>
+
+    <!-- Floating Action Button for Navigation -->
+    <button class="fab pulse-glow" id="openNavFab">
+        <span class="material-icons-round">directions</span>
+    </button>
+
+    <!-- Bottom Sheet for Routing -->
+    <div class="bottom-sheet" id="routingSheet">
+        <div class="drag-handle"></div>
+        
+        <div class="sheet-header">
+            <h3>Directions</h3>
+            <button class="icon-btn close-btn" id="closeSheetBtn">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+
+        <div class="routing-inputs">
+            <div class="timeline-visual">
+                <div class="timeline-dot start"></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-dot end"></div>
+            </div>
+            <div class="input-fields">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Starting point..." class="source-input" id="sourceInput">
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Choose destination..." class="dest-input" id="destInput">
+                </div>
+            </div>
+            <button class="icon-btn swap-btn">
+                <span class="material-icons-round">swap_vert</span>
+            </button>
+        </div>
+
+        <!-- Visual Entrance Snapshot -->
+        <div class="location-preview" id="locationPreview">
+            <img src="main_block_entrance_1776833109572.png" alt="Building Preview" id="previewImg">
+            <div class="preview-overlay">
+                <span id="previewName">Select a location</span>
+            </div>
+        </div>
+
+        <!-- Recent Locations / Suggested -->
+        <div class="suggested-section">
+            <h4>Campus Locations</h4>
+            <ul class="location-list" id="dynamicLocationList">
+                <!-- Dynamically populated from locations.js -->
+            </ul>
+        </div>
+
+        <button class="primary-btn pulse-glow" id="startNavBtn">
+            <span class="material-icons-round">navigation</span> Start Navigation
+        </button>
+    </div>
+
+    </div>
+    
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEGy9PX9GU3rETELxUjheTSW_97fsZGfM&libraries=geometry,places,marker"></script>
+    
+    <!-- External JS -->
+    <script src="locations.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

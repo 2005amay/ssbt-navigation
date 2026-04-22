@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     destInput.value = building.name;
                     selectedTarget = building;
                 }
-                updatePreview(building);
             });
 
             buildingMarkers.push({ id: building.id, marker: marker });
@@ -217,18 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Preview Logic
-    const previewImg = document.getElementById('previewImg');
-    const previewName = document.getElementById('previewName');
-    const updatePreview = (building) => {
-        if (!building) return;
-        previewImg.style.opacity = '0';
-        setTimeout(() => {
-            previewImg.src = building.image;
-            previewName.innerText = building.name;
-            previewImg.style.opacity = '1';
-        }, 300);
-    };
 
     // Populate List
     const dynamicLocationList = document.getElementById('dynamicLocationList');
@@ -254,7 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     destInput.value = building.name;
                     selectedTarget = building;
                 }
-                updatePreview(building);
             });
             dynamicLocationList.appendChild(li);
         });

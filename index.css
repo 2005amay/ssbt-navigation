@@ -40,41 +40,23 @@
 
 body {
     font-family: 'Outfit', sans-serif;
-    background-color: #f1f5f9;
     color: var(--text-main);
     margin: 0;
     padding: 0;
     height: 100vh;
     width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
 }
 
 #app-container {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: var(--bg-base);
     overflow: hidden;
     contain: paint;
 }
 
-/* Desktop "Phone Frame" Enhancement */
-@media (min-width: 481px) {
-    body {
-        background-color: #f1f5f9;
-    }
-    
-    #app-container {
-        max-width: 400px;
-        max-height: 850px;
-        border-radius: 36px;
-        border: 8px solid #334155;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-}
 
 
 /* Map Area */

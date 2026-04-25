@@ -46,6 +46,11 @@
         <span class="material-icons-round">my_location</span>
     </button>
 
+    <!-- Campus Timings Toggle Button -->
+    <button class="timings-btn" id="timingsBtn" title="View Campus Timings">
+        <span class="material-icons-round">schedule</span>
+    </button>
+
     <!-- Floating Action Button for Navigation -->
     <button class="fab pulse-glow" id="openNavFab">
         <span class="material-icons-round">directions</span>
@@ -95,6 +100,33 @@
         </button>
     </div>
 
+    </div>
+
+    <!-- Photo Overlay Modal -->
+    <div class="photo-overlay" id="photoOverlay">
+        <div class="photo-container">
+            <button class="close-photo" id="closePhotoBtn">
+                <span class="material-icons-round">close</span>
+            </button>
+            <img src="" alt="Location Photo" id="targetPhoto">
+            <div class="photo-caption">
+                <h2 id="photoTitle">Location Name</h2>
+                <p id="photoDesc">Description goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Campus Timings Panel -->
+    <div class="timings-panel" id="timingsPanel">
+        <div class="timings-header">
+            <h3>Campus Timings</h3>
+            <button class="close-timings" id="closeTimingsBtn">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+        <div class="timings-list" id="timingsList">
+            <!-- Dynamically populated -->
+        </div>
     </div>
     
     <!-- Google Maps API -->

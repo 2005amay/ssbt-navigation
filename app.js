@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Correctly calculate VH for mobile browsers (fixes address bar issue)
+    const setVH = () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    setVH();
+    window.addEventListener('resize', setVH);
 
     // --- Google Maps Initialization ---
     // Precise SSBT COET Jalgaon center
@@ -45,6 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
         styles: roadmapStyles
     });
 
+    map.addListener('click', () => {
+        collapseSheet();
+    });
+
     // Custom Blue Dot (User Location)
     const blueDotMarker = new google.maps.Marker({
         position: campusCenter,
@@ -62,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Render Campus Markers ---
     const buildingMarkers = [];
+
     if (typeof campusBuildings !== 'undefined') {
         campusBuildings.forEach(building => {
             const position = { lat: building.center[0], lng: building.center[1] };
@@ -89,22 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Info Window for quick preview
-            const infoWindow = new google.maps.InfoWindow({
-                content: `<div style="font-family:Outfit,sans-serif;padding:4px 8px;">
-                    <strong>${building.name}</strong><br>
-                    <span style="color:#64748B;font-size:12px;">${building.description}</span>
-                </div>`
-            });
-
             // Click interaction
             marker.addListener('click', () => {
+                window.openPhotoViewer(building.id);
                 expandSheet();
                 if (activeInput === 'source') {
                     stopTracking();
                     sourceInput.value = building.name;
                     selectedSource = building;
-                    blueDotMarker.setPosition(position);
+                    const pos = { lat: building.center[0], lng: building.center[1] };
+                    blueDotMarker.setPosition(pos);
                 } else {
                     destInput.value = building.name;
                     selectedTarget = building;
@@ -312,4 +318,59 @@ document.addEventListener('DOMContentLoaded', () => {
         else { calculateRoute(); collapseSheet(); }
     });
 
+    // --- Photo Viewer Logic ---
+    const photoOverlay = document.getElementById('photoOverlay');
+    const closePhotoBtn = document.getElementById('closePhotoBtn');
+    const targetPhoto = document.getElementById('targetPhoto');
+    const photoTitle = document.getElementById('photoTitle');
+    const photoDesc = document.getElementById('photoDesc');
+
+    window.openPhotoViewer = (buildingId) => {
+        const building = campusBuildings.find(b => b.id === buildingId);
+        if (building) {
+            targetPhoto.src = building.image;
+            photoTitle.innerText = building.name;
+            photoDesc.innerText = building.description;
+            photoOverlay.classList.add('active');
+        }
+    };
+
+    closePhotoBtn.addEventListener('click', () => {
+        photoOverlay.classList.remove('active');
+    });
+
+    photoOverlay.addEventListener('click', (e) => {
+        if (e.target === photoOverlay) {
+            photoOverlay.classList.remove('active');
+        }
+    });
+
+    // --- Campus Timings Logic ---
+    const timingsBtn = document.getElementById('timingsBtn');
+    const timingsPanel = document.getElementById('timingsPanel');
+    const closeTimingsBtn = document.getElementById('closeTimingsBtn');
+    const timingsList = document.getElementById('timingsList');
+
+    if (timingsList && typeof campusTimings !== 'undefined') {
+        campusTimings.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'timings-item';
+            div.innerHTML = `
+                <span class="material-icons-round">${item.icon}</span>
+                <div class="timings-info">
+                    <span class="name">${item.name}</span>
+                    <span class="time">${item.time}</span>
+                </div>
+            `;
+            timingsList.appendChild(div);
+        });
+    }
+
+    timingsBtn.addEventListener('click', () => {
+        timingsPanel.classList.toggle('active');
+    });
+
+    closeTimingsBtn.addEventListener('click', () => {
+        timingsPanel.classList.remove('active');
+    });
 });

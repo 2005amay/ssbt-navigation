@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            buildingMarkers.push({ id: building.id, marker: marker });
+            buildingMarkers.push({ id: building.id, category: building.category, marker: marker });
         });
     }
 
@@ -373,4 +373,23 @@ document.addEventListener('DOMContentLoaded', () => {
     closeTimingsBtn.addEventListener('click', () => {
         timingsPanel.classList.remove('active');
     });
+
+    // --- Compass Logic ---
+    const compassArrows = document.getElementById('compassArrows');
+    
+    const updateCompass = () => {
+        const heading = map.getHeading() || 0;
+        // Point North by adjusting based on map heading
+        if (compassArrows) {
+            compassArrows.style.transform = `rotate(${45 - heading}deg)`;
+        }
+    };
+
+
+    map.addListener('heading_changed', updateCompass);
+
+    map.addListener('tilt_changed', updateCompass);
+    
+    // Initial update
+    updateCompass();
 });

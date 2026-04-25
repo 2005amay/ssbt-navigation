@@ -150,6 +150,7 @@ const campusBuildings = [
     }
 ];
 
+
 const campusTimings = [
     { name: 'Central Library', time: '10:30 AM - 5:00 PM', icon: 'local_library' },
     { name: 'Main Admin Block', time: '10:00 AM - 5:30 PM', icon: 'admin_panel_settings' },

@@ -904,4 +904,113 @@ body {
     font-size: 12px;
     color: var(--text-muted);
 }
+
+/* High-End Mini Compass */
+.compass-container {
+    position: absolute;
+    top: calc(100px + env(safe-area-inset-top));
+    left: 24px;
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-float);
+    z-index: 1010;
+    transition: transform 0.3s ease;
+    overflow: visible; /* Changed from hidden to show labels */
+}
+
+.cardinal {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+.cardinal.n { top: -14px; left: 50%; transform: translateX(-50%); color: #EF4444; }
+.cardinal.e { right: -14px; top: 50%; transform: translateY(-50%); }
+.cardinal.s { bottom: -14px; left: 50%; transform: translateX(-50%); }
+.cardinal.w { left: -14px; top: 50%; transform: translateY(-50%); }
+
+
+.pl {
+  display: block;
+  width: 45px;
+  height: 45px;
+}
+
+.pl__arrows,
+.pl__ring-rotate,
+.pl__ring-stroke,
+.pl__tick {
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.pl__arrows {
+  /* We will override transform via JS to point North */
+  /* animation-name: arrows42; */ 
+  transform-origin: 16px 52px;
+}
+
+.pl__ring-rotate,
+.pl__ring-stroke {
+  transform-origin: 80px 80px;
+}
+
+.pl__ring-rotate {
+  animation-name: ringRotate42;
+}
+
+.pl__ring-stroke {
+  animation-name: ringStroke42;
+  transform: rotate(-45deg);
+}
+
+.pl__tick {
+  animation-name: tick42;
+}
+
+.pl__tick:nth-child(2) { animation-delay: -1.75s; }
+.pl__tick:nth-child(3) { animation-delay: -1.5s; }
+.pl__tick:nth-child(4) { animation-delay: -1.25s; }
+.pl__tick:nth-child(5) { animation-delay: -1s; }
+.pl__tick:nth-child(6) { animation-delay: -0.75s; }
+.pl__tick:nth-child(7) { animation-delay: -0.5s; }
+.pl__tick:nth-child(8) { animation-delay: -0.25s; }
+
+/* Animations */
+@keyframes ringRotate42 {
+  from { transform: rotate(0); }
+  to { transform: rotate(720deg); }
+}
+
+@keyframes ringStroke42 {
+  from, to {
+    stroke-dashoffset: 452;
+    transform: rotate(-45deg);
+  }
+  50% {
+    stroke-dashoffset: 169.5;
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes tick42 {
+  from, 3%, 47%, to { stroke-dashoffset: -12; }
+  14%, 36% { stroke-dashoffset: 0; }
+}
+
+
+
+
+
 
